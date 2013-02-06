@@ -1,0 +1,104 @@
+<style>
+	.columnContainer {
+				-moz-column-count: 3;
+				-moz-column-gap: 20px;
+				-webkit-column-count: 3;
+				-webkit-column-gap: 20px;
+				column-count: 3;
+				column-gap: 20px;
+	}
+	
+	.item {
+		break-inside: avoid-column;
+		-webkit-column-break-inside: avoid;
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.active').removeClass('active');
+		$('#exportData').addClass('active')
+		//$('#txtFieldName').focus();
+	});
+</script>
+<form class="form-horizontal">
+                    <fieldset>
+                        <legend>Export Data</legend>
+                        <div class="control-group">
+                            <label class="control-label" for="selectSavedTemplate">Select an Export Template</label>
+                            <div class="controls">
+                                <select id='selectSavedTemplate' class='input-xlarge' name='selectSavedTemplate' onchange='savedTemplateChanged();'>
+                                	<option id='blankOption'></option>
+                                	<option>Create New Template...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <h3 style='text-align: center;'> -OR- </h3>
+                        <br>
+                        <div class="control-group">
+                            <label class="control-label" for="txtAdHocRule">Ad Hoc Rule</label>
+                            <div class="controls">
+                                <textarea type="text" class="input-xlarge span10" id="txtAdHocRule" name='txtAdHocRule' cols='200' rows='10'></textarea>
+                            </div>
+                        </div>
+                        <div class='form-actions'>
+                            <button class="btn btn-primary" onclick='getRuleResults(); return false;'><i class='icon-cog icon-white'></i> Run Export Rule</button>
+                        </div>
+                    </fieldset>
+                </form>
+                <h4>Results</h4>
+<div id='results'></div>
+
+<br><br><br>
+<script src='/scripts/exportData.js' type='text/javascript'>></script>
+
+<script id='wellTemplate' type='text/html'>
+	This page allows you to create custom exports/views of the data in the Intelligence Dataabase. Example: create Snort/Suricata rules for every piece of intelligence that has a source IP address associated with it
+	<br><br>
+	<h4>Template Language</h4>
+	The template language allows for quick creation of rules/exports for any format. The rule processor will run for each piece of intelligence that matches the criteria specified. Any text that is not enclosed in the field
+	markers is simply duplicated as text. The field markers are specified like so:
+	<br><br>
+	<strong>{:fieldName}</strong>
+	<br><br>
+	The best example of how to use the data export language is a Snort rule that alerts on any source IPs specified in the intel data:
+	<br>
+	<br>
+	<pre>alert tcp {:source_ipv4_address} any -> $HOME_NET $HTTP_PORTS ('{:title}'; sid:{:random_sid}; rev:1;)
+	</pre>
+	<h4>Built in Fields</h4>
+	To assist in template writing, there are a few built in fields:
+	<ul>
+		<li>{:random_sid} - Returns a random SID for use in Snort Rules</li>
+		<li>{:rand_digit} - Returns a random digit from 0-9</li>
+	</ul>
+</script>
+
+<div class="modal fade" id="templateModal">
+  <div class="modal-header">
+    <a href='#' class="close" data-dismiss="modal">×</a>
+    <h3>Create a new export template</h3>
+  </div>
+  <div class="modal-body">
+  				<div class="control-group">
+			      <label class="control-label" for="txtTemplateName">Template Name</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" id="txtTemplateName">
+			        <p class="help-block">The name that will be used to describe the template</p>
+			      </div>
+			    </div>
+			    <div><h4>Fields To Pick From</h4>
+			    	<ul class='columnContainer' id='fields'></ul>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="txtTemplate">Template</label>
+			      <div class="controls">
+			        <textarea type="text" class="input-xlarge span10" id="txtTemplate"></textarea>
+			        <p class="help-block">The Actual Template Text</p>
+			      </div>
+			    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Cancel</a>
+    <a href="#" class="btn btn-success" onclick='saveNewTemplate();'><i class='icon-check icon-white'></i> Save New Template</a>
+  </div>
+</div>

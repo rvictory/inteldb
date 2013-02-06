@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <title>Please Login</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        
+                        <!-- Le styles -->
+                        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+
+                                
+                                <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+                                <!--[if lt IE 9]>
+                                 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+                                 <![endif]-->
+    </head>
+    <body>
+        
+        <div class="container">
+            <div class='span6 offset3'>
+                <form class="form-horizontal" action='/login' method='POST'>
+                    <fieldset>
+                        <legend>Please Login</legend>
+                        <% if @errormessage != nil %>
+                            <br>
+                            <div class="alert alert-error">
+                                <h4 class="alert-heading">Error!</h4>
+                                <%= @errormessage %>
+                            </div>
+                        <% end %>
+                        <div class="control-group">
+                            <label class="control-label" for="txtUserName">Username</label>
+                            <div class="controls">
+                                <input type="text" class="input-xlarge" id="txtUserName" name='txtUserName'>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="txtPassword">Password</label>
+                            <div class="controls">
+                                <input type="password" class="input-xlarge" id="txtPassword" name='txtPassword'>
+                            </div>
+                        </div>
+                        <div class='form-actions'>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        <script src='/scripts/jquery-1.7.1.js' type="text/javascript"></script>
+        <script src='/bootstrap/js/bootstrap.js' type='text/javascript'></script>
+        <script type='text/javascript'>
+            $(document).ready(function () {
+                              $('#txtUserName').focus();
+                              });
+        </script>
+        
+    </body>
+</html>

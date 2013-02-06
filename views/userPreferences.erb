@@ -1,0 +1,63 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.active').removeClass('active');
+		$('#userPreferences').addClass('active')
+		$('#txtCurrentPassword').focus();
+	});
+</script>
+<h2>User Preferences</h2>
+<form class="form-horizontal" action='/authenticated/change-password' method='POST'>
+                    <fieldset>
+                        <legend>Change Password</legend>
+                        <% if @errormessage != nil %>
+                            <br>
+                            <div class="alert alert-error">
+                                <h4 class="alert-heading">Error!</h4>
+                                <%= @errormessage %>
+                            </div>
+                        <% end %>
+                        <% if @result != nil && @result == 'Success' %>
+                            <br>
+                            <div class="alert alert-success">
+                                <h4 class="alert-heading">Success!</h4>
+                                Your password has been changed successfully!
+                            </div>
+                        <% end %>
+                        <div class="control-group">
+                            <label class="control-label" for="txtCurrentPassword">Current Password</label>
+                            <div class="controls">
+                                <input type="password" class="input-xlarge" id="txtCurrentPassword" name='txtCurrentPassword'>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="txtNewPassword">New Password</label>
+                            <div class="controls">
+                                <input type="password" class="input-xlarge" id="txtNewPassword" name='txtNewPassword'>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="txtRepeatPassword">Repeat Password</label>
+                            <div class="controls">
+                                <input type="password" class="input-xlarge" id="txtRepeatPassword" name='txtRepeatPassword'>
+                            </div>
+                        </div>
+                        <div class='form-actions'>
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </div>
+                    </fieldset>
+</form>
+
+<form class='form-horizontal' action='/authenticated/add-user' method='POST'>
+	<fieldset>
+    <legend>Add a New User</legend>
+	<div class="control-group">
+                            <label class="control-label" for="txtUserName">Username (Email Address)</label>
+                            <div class="controls">
+                                <input type="text" class="input-xlarge" id="txtUserName" name='txtUserName'>
+                            </div>
+    </div>
+    <div class='form-actions'>
+                            <button type="submit" class="btn btn-primary">Add User</button>
+                        </div>
+                    </fieldset>
+</form>

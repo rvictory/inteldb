@@ -1,0 +1,95 @@
+<style>
+	.columnContainer {
+				-moz-column-count: 3;
+				-moz-column-gap: 20px;
+				-webkit-column-count: 3;
+				-webkit-column-gap: 20px;
+				column-count: 3;
+				column-gap: 20px;
+	}
+	
+	.item {
+		break-inside: avoid-column;
+		-webkit-column-break-inside: avoid;
+	}
+</style>
+
+<h3>View Intelligence</h3>
+
+<div class="accordion" id="accordion2">
+  
+</div>
+
+<div id='noRecordsError' class='alert alert-error' style='display: none;'>
+	<h4 class='alert-heading'>No Data found</h4>
+	No records were found in the database for the given page/query. Go add some data!	
+</div>
+
+<div class="pagination pagination-centered">
+    <ul>
+        <li id='previousButton'><a onclick='previousPage();' href="#">Prev</a></li>
+        
+        <li id='nextButton'><a href="#" onclick='nextPage();'>Next</a></li>
+    </ul>
+</div>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3 id='modalHeader'></h3>
+  </div>
+  <div class="modal-body" id='modalBody'>
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">OK</a>
+  </div>
+</div>
+
+<div class="modal fade" id="emailItemModal" data-id-to-email=''>
+  <div class="modal-header">
+    <a href='#' class="close" data-dismiss="modal">×</a>
+    <h3>Email Intel Item</h3>
+  </div>
+  <div class="modal-body">
+  				<div class="control-group">
+			      <label class="control-label" for="emailTo">Send Item To</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" id="emailTo">
+			        <p class="help-block">The Email address to send this intel item to</p>
+			      </div>
+			    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Cancel</a>
+    <a href="#" class="btn btn-success" onclick='emailItem();'><i class='icon-envelope icon-white'></i> Send Email</a>
+  </div>
+</div>
+
+<script type='text/javascript' src='/scripts/intelList.js'></script>
+<script type='text/javascript' src='/scripts/jsrender.js'></script>
+
+
+<script id='AccordianTemplate' type='text/html'>
+<div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{:_id.$oid}}">
+          <span style='float: left;'>{{:source_institution}} - {{:title}}</span> <span style='float: right'>{{:date_added}}</span>
+      </a>
+      <div style='clear: both; height: 3px;'></div>
+    </div>
+    <div id="collapse{{:_id.$oid}}" class="accordion-body collapse">
+      <div class="accordion-inner">
+                  <div class='columnContainer'>
+                  {{:contents}}
+                  </div>
+                  {{:context}}
+                  <br><br>
+                  <div class='well'>
+                      <button class='btn btn-mini btn-primary' onclick="showEmailDialog('{{:_id.$oid}}')"><i class='icon-envelope icon-white' ></i>Email</button> 
+                      <a href='/authenticated/services/pdf/{{:_id.$oid}}/IntelItem.pdf' target='_blank' class='btn btn-primary btn-mini'><i class='icon-file icon-white'></i>Export to PDF</a> 
+                      <button class='btn btn-primary btn-mini'><i class='icon-cog icon-white'></i>Create Rule</button>
+                  </div>
+        </div>
+    </div>
+  </div>
+</script>

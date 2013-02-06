@@ -1,0 +1,88 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.active').removeClass('active');
+		$('#manageSchema').addClass('active')
+		$('#txtFieldName').focus();
+	});
+</script>
+<div class='row'>
+    <div class='span5'>
+    
+    <div class='alert alert-success' style='display: none;' id='successAlert'>
+    	<a class='close' data-dismiss='alert'>&times;</a>
+    	<h4 class='alert-heading'>Schema Item added!</h4>
+    	The schema item was added to the database successfully.
+    </div>
+<form class="form-horizontal">
+    
+	  <fieldset>
+	  	<legend> &nbsp;Add/Edit Schema Item <button style='float: right' class='btn btn-small' onclick='clearForm(); return false;'>Clear Form</button></legend>
+	  	<br>
+			    <div class="control-group">
+			      <label class="control-label" for="txtFieldName">Field Name</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" id="txtFieldName">
+			        <p class="help-block">The name of the field (no spaces)</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="txtDisplayName">Display Name</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" id="txtDisplayName">
+			        <p class="help-block">How the field should be displayed on a form/report</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="txtDescription">Description</label>
+			      <div class="controls">
+			        <textarea class="input-xlarge" id="txtDescription" rows="5"></textarea>
+			        <p class="help-block">A more detailed description of the field</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="txtAddedBy">Added By</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" id="txtAddedBy">
+			        <p class="help-block">The name of the person adding this field to the database</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="txtValidationExpression">Validation Expression</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" id="txtValidationExpression">
+			        <p class="help-block">A regular expression that can validate the data in this field</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <div class="controls">
+			        <label class="checkbox">
+						<input type="checkbox" id="checkRequired" value="true"/>
+						 Validation required for data to be entered into the field
+					</label>
+			        <p class="help-block">If the data going into the database for this field needs to match the validation expression</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <div class="controls">
+			        <label class="checkbox">
+						<input type="checkbox" id="checkDefault" value="false"/>
+						 Default Field?
+					</label>
+			        <p class="help-block">This field should be a "default" field when intelligence is being entered in to the database</p>
+			      </div>
+			    </div>
+			    <div class='form-actions'>
+			    	<button class='btn btn-success' id='btnSubmit' onclick='submitFormAjax(); return false;'>Submit Item</button>
+			    </div>
+	  </fieldset>
+</form>
+    </div>
+    <div class='span4 offset1'>
+        <div class='well' id='duplicateItemMessage' style='display: none;'>
+            <h3>Is this a duplicate item?</h3>
+            We have detected that this might be a duplicate for one of the following fields:
+            
+        </div>
+    </div>
+</div>
+<script src='/scripts/manageSchema.js' type='text/javascript'></script>

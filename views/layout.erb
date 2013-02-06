@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>IntelDB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src='/scripts/jquery-1.7.1.js' type="text/javascript"></script>
+    <script src='/bootstrap/js/bootstrap.js' type='text/javascript'></script>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body style='padding-top: 60px;'>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Roadhouse IntelDB</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/authenticated/index">View Data</a></li>
+              <li id='addData'><a href="/authenticated/add-data">Add Data</a></li>
+              <li id='manageSchema'><a href="/authenticated/manage-schema">Manage Schema</a></li>
+              <li id='exportData'><a href="/authenticated/export-data">Export Data</a></li>
+              <li id='userPreferences'><a href='/authenticated/user-management'>User Management</a></li>
+              <li id='auditLog'><a href='/authenticated/view-log'>Audit Log</a></li>
+            </ul>
+            <p class="navbar-text pull-right">Logged in as <%= session[:username] %> <a href="/logout">(Logout)</a></p>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="container-fluid">
+	  <div class="row-fluid">
+	    <div class="span3">
+	    	<div class='well' style='padding: 8px;' id='leftWell'>
+		      	<ul class="nav nav-list" id='leftNavigation'>
+                </ul>
+	    	</div>
+	    </div>
+	    <div class="span9">
+	      <%= yield %>
+	    </div>
+	  </div>
+	</div>
+    
+  </body>
+</html>

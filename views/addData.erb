@@ -1,0 +1,146 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.active').removeClass('active');
+		$('#addData').addClass('active')
+		$('#txtDateExpires').focus();
+	});
+</script>
+<div class='row'>
+	<div id='validationError' class='alert alert-error' style='display: none;'>
+		 <h4 class="alert-heading">Validation Error!</h4>
+		 One or more fields failed the validation test. They are highlighed in red. Please correct errors and try submitting again.
+	</div>
+<form class="form-horizontal">
+	  <fieldset>
+	  	<legend> &nbsp;Add Data Record</legend>
+	  	<br>
+		  	<div class='span5' id='leftSide'>
+			    <div class="control-group">
+			      <label class="control-label" for="date_added">Date/Time Added</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge disabled" id="date_added" name="date_added" value='' disabled=""></input>
+			        <p class="help-block">The date the intel item was added to the database</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="date_expires">Date/Time Expires</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" id="date_expires">
+			        <p class="help-block">The date the intel item is no longer valid</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="source_individual">Added By</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" id="source_individual">
+			        <p class="help-block">The person who added the intel item</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="source_institution">Source Institution</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" id="source_institution">
+			        <p class="help-block">The source institution of the intel item</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="title">Intel Title</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" id="title">
+			        <p class="help-block">A descriptive title of the intelligence</p>
+			      </div>
+			    </div>
+			    
+			    <h4 id ='insertNewField'>Insert another field</h4>
+			    <div class="control-group">
+			      <label class="control-label" for="selectNewField">Field</label>
+			      <div class="controls">
+			        <select id='selectNewField'>
+			        </select>&nbsp;<a href='#' class='btn btn-mini' onclick='addFieldSelected();'>Add Field</a>
+			        <p class="help-block">Add another field to this item, or make a new field</p>
+			      </div>
+			    </div>
+			    <div class='form-actions' id='submitArea'>
+			    	<button class='btn btn-success' id='btnSubmit' onclick='submitFormAjax(); return false;'>Add Intel Item</button>
+			    </div>
+    	</div>
+    	
+    	
+    	<div class='span4'>
+    		<div class="control-group">
+			      <label class="control-label" for="context">Context</label>
+			      <div class="controls">
+			        <textarea class="input-xlarge" id="context" rows="10"></textarea>
+			        <p class="help-block">A narrative that describes the intel (how it was found, etc.)</p>
+			      </div>
+			</div>
+			<div class="control-group">
+			      <label class="control-label" for="category">Category</label>
+			      <div class="controls">
+			        <select id='category'>
+			        	<option>Miscreant</option>
+			        	<option>Infection Indicator</option>
+			        	<option>Add New Category</option>
+			        </select>
+			        <p class="help-block">A general category the intelligence falls into</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="tags">Tags</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" id="tags">
+			        <p class="help-block">One word tags that describe this intel. Separate by space, comma, or semi-colon</p>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="level">Level</label>
+			      <div class="controls">
+			        <select id='level'>
+			        	<option>Log</option>
+			        	<option>Alert</option>
+			        	<option>Submit to Operations</option>
+			        	<option>Immediate Block</option>
+			        </select>
+			        <p class="help-block">The level of action that should be taken when the intel results in an alert</p>
+			      </div>
+			    </div>
+    	</div>
+    
+  </fieldset>
+</form>
+</div>
+
+<script type='text/javascript' src='/scripts/addData.js'></script>
+<script type='text/javascript' src='/scripts/jsrender.js'></script>
+
+<script id='fieldTemplate' type='text/html'>
+				<div class="control-group">
+			      <label class="control-label" for="{{:field_name}}">{{:display_name}}</label>
+			      <div class="controls">
+			        <input type='text' 
+			        	class='input-xlarge' 
+			        	id='{{:field_name}}' 
+			        	onblur='validateFieldOnBlur(this);'
+			        	data-validation-required='{{:validation_required}}' 
+			        	data-validation-expression='{{:validation_expression}}'>
+			        <p class="help-block">{{:description}}</p>
+			      </div>
+			    </div>
+</script>
+
+<script id='fileUploadTemplate' type='text/html'>
+	<br><br>
+	<% if @fileInputError != nil %>
+                            <br>
+                            <div class="alert alert-error">
+                                <h4 class="alert-heading">Error!</h4>
+                                <%= @fileInputError %>
+                            </div>
+                        <% end %>
+	<form action='/authenticated/services/dataImport' method='post' enctype='multipart/form-data'>
+		<h4>Import Data from a File</h4>
+		<input class='input-file' id='fileInput' name='fileInput' type='file'>
+		<br>
+		<button type='submit' class='btn btn-success'>Import</button>
+	</form>
+</script>
