@@ -1,1 +1,7 @@
-This file was created by JetBrains RubyMine 4.5.4 for binding GitHub repository
+IntelDB - a schemaless data storage and retrieval solution
+
+IntelDB is a system for storing and retrieving data even if the pieces of data do not share a common schema.
+
+Caveat: This project was written when I was learning a lot of Ruby-esque things for the first time, I do plan on cleaning it up when I get a chance.
+
+Usage instructions coming soon.
